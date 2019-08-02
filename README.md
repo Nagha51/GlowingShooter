@@ -6,7 +6,7 @@ Splash boom Zbwa !
 # Install
 
 ```bash
-glowing_shooter
+pip install -e .
 ```
 
 
@@ -26,5 +26,13 @@ glowing_shooter --help
 # Access web page
 
 Open [Game Home Page: /glowing_shooter/front/home.html](/glowing_shooter/front/home.html)
+
+
+# Development
+
+- Install test extras
+```bash
+pip install -e .[test]
+```
 
 [glowing_shooter_image]: /docs/resources/glowing_shooter.png "Glowing shooter image"
