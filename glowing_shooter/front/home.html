@@ -1,0 +1,64 @@
+<!DOCTYPE HTML>
+
+<html>
+   <head>
+
+      <script type = "text/javascript">
+         function WebSocketTest() {
+
+            if ("WebSocket" in window) {
+               // Let us open a web socket
+               var websocket_uri = "ws://localhost:80/";
+               var ws = new WebSocket(websocket_uri);
+               console.log("Creating websocket to: " +  websocket_uri)
+
+               ws.onopen = function() {
+
+                  // Web Socket is connected, send data using send()
+                  ws.send("Connection to server");
+                  console.log("Connection to server sent...");
+               };
+
+               ws.onmessage = function (evt) {
+                  var received_msg = evt.data;
+                  console.log("Server:" + received_msg);
+               };
+
+               ws.onclose = function() {
+                  console.log("Connection to remote server closed...");
+               };
+            } else {
+
+               // The browser doesn't support WebSocket
+               console.log("WebSocket NOT supported by your Browser!");
+            }
+         }
+         function WebSocketClose() {
+
+            if ("WebSocket" in window) {
+            // Let us open a web socket
+                var websocket_uri = "ws://localhost:80/";
+                var ws = new WebSocket(websocket_uri);
+                ws.onopen = function() {
+                    ws.send("STOP_SERVER");
+                    console.log("Sent to " +  websocket_uri + ": STOP_SERVER");
+                };
+            }
+
+         }
+
+      </script>
+
+   </head>
+
+   <body>
+      <div id = "sse">
+         <a href = "javascript:WebSocketTest()">Run WebSocket</a>
+      </div>
+
+      <div id = "sse">
+        <a href = "javascript:WebSocketClose()">Close server WebSocket</a>
+     </div>
+
+   </body>
+</html>
