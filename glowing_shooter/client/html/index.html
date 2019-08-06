@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- Should merge them all in one single .js -->
+  <script type="text/javascript" src="../js/assets.js"></script>
+  <script type="text/javascript" src="../js/connection.js"></script>
+  <script type="text/javascript" src="../js/index.js"></script>
+  <script type="text/javascript" src="../js/input.js"></script>
+  <script type="text/javascript" src="../js/networking.js"></script>
+  <script type="text/javascript" src="../js/render.js"></script>
+  <script type="text/javascript" src="../js/state.js"></script>
+  <title>An example .io game</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="shortcut icon" href="/assets/icon64.png">
+  <meta property="og:image" content="/assets/icon1200.png">
+
+</head>
+<body>
+  <canvas id="game-canvas"></canvas>
+  <div id="play-menu" class="hidden">
+    <h1>Soon a brightful .io game</h1>
+    <p>
+      Stay alive and shoot other players.
+      <br />
+      Use your mouse to move.
+    </p>
+    <hr />
+    <p>
+      See the source code on <a href="https://github.com/Nagha51/GlowingShooter" target="_blank">Github</a>.
+      <br />
+      Created by Nagha.
+    </p>
+    <hr />
+    <input type="text" id="username-input" placeholder="Username" />
+    <button id="play-button">PLAY</button>
+  </div>
+  <div id="disconnect-modal" class="hidden">
+    <div>
+      <h2>Disconnected from Server </h2>
+      <hr />
+      <button id="reconnect-button">RECONNECT</button>
+    </div>
+  </div>
+</body>
+</html>

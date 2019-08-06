@@ -25,7 +25,7 @@ glowing_shooter --help
 
 # Access web page
 
-Open [Game Home Page: /glowing_shooter/front/home.html](/glowing_shooter/front/home.html)
+Open [Game Home Page: /glowing_shooter/front/home.html](/glowing_shooter/client/home.html)
 
 
 # Development
@@ -34,5 +34,12 @@ Open [Game Home Page: /glowing_shooter/front/home.html](/glowing_shooter/front/h
 ```bash
 pip install -e .[test]
 ```
+
+# Inspirations
+
+Nice tutorial of:
+
+https://github.com/vzhou842/example-.io-game
+
 
 [glowing_shooter_image]: /docs/resources/glowing_shooter.png "Glowing shooter image"
