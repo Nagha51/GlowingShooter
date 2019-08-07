@@ -25,15 +25,29 @@ glowing_shooter --help
 
 # Access web page
 
-Open [Game Home Page: /glowing_shooter/front/home.html](/glowing_shooter/client/home.html)
+```bash
+npm run build
+```
+
+Open [Game Home Page: /dist/index.html](/dist/index.html)
 
 
 # Development
+
+### Python
 
 - Install test extras
 ```bash
 pip install -e .[test]
 ```
+
+### Web
+
+- Live-updating `game.XXX.js` and `game.XXX.css`
+```bash
+npm run watch
+```
+
 
 # Inspirations
 

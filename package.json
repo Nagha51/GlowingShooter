@@ -1,12 +1,12 @@
 {
-  "name": "io-game-from-scratch",
+  "name": "glowing_shooter",
   "version": "1.0.0",
   "description": "",
-  "main": "glowing_shooter/client/html/index.html",
+  "main": "dist/index.html",
   "scripts": {
     "build": "webpack --config webpack.prod.js",
     "lint": "eslint --cache --ext .js,.jsx glowing_shooter/",
-    "watch": "webpack --progress --watch",
+    "watch": "webpack --config webpack.dev.js --watch",
     "client": "webpack-dev-server --open"
   },
   "author": "Victor Zhou",
