@@ -5,10 +5,16 @@ Splash boom Zbwa !
 
 # Install
 
+### Python
+
 ```bash
 pip install -e .
 ```
 
+### Web
+```bash
+npm install
+```
 
 # Server CLI commands
 
@@ -25,11 +31,12 @@ glowing_shooter --help
 
 # Access web page
 
+- Generate within `dist` folder the `index.html` including the generated `game.XXX.js` and `game.XXX.css`
 ```bash
 npm run build
 ```
 
-Open [Game Home Page: /dist/index.html](/dist/index.html)
+Open the freshly generated [Game Home Page: /dist/index.html](/dist/index.html)
 
 
 # Development
@@ -49,11 +56,11 @@ npm run watch
 ```
 
 
-# Inspirations
+# Credits
 
-Nice tutorial of:
+- Nice base project of: https://github.com/vzhou842/example-.io-game
+- Webpack explained [FR]: https://www.alsacreations.com/tuto/lire/1754-debuter-avec-webpack.html
 
-https://github.com/vzhou842/example-.io-game
 
 
 [glowing_shooter_image]: /docs/resources/glowing_shooter.png "Glowing shooter image"
