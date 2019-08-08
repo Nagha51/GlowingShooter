@@ -1,6 +1,7 @@
 import sys
 import logging
 import argparse
+from glowing_shooter.server.core.flaskio_server import run as flaskio_run
 from glowing_shooter.server.core.game import Game
 from glowing_shooter.server.core.consumer import Consumer
 from glowing_shooter.server.core.producer import Producer
@@ -8,8 +9,8 @@ from glowing_shooter.server.core.producer import Producer
 
 def configure_parser():
     parser = argparse.ArgumentParser(description="Start your server")
-    parser.add_argument("--host", dest="host", required=False, help="Hostname", default="localhost", type=str)
-    parser.add_argument("--port", dest="port", required=False, help="Port", default=80, type=int)
+    parser.add_argument("--host", dest="host", required=False, help="Hostname", default="127.0.0.1", type=str)
+    parser.add_argument("--port", dest="port", required=False, help="Port", default=8080, type=int)
     return parser
 
 
@@ -32,7 +33,8 @@ def start_server():
     producer = Producer()
     game = Game(consumer, producer, **vars(parsed_args))
     logger.debug("Starting game")
-    game.run()
+    # game.run()
+    flaskio_run(parsed_args.host, parsed_args.port)
 
 
 if __name__ == "__main__":

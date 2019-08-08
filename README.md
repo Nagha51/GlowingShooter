@@ -60,6 +60,8 @@ npm run watch
 
 - Nice base project of: https://github.com/vzhou842/example-.io-game
 - Webpack explained [FR]: https://www.alsacreations.com/tuto/lire/1754-debuter-avec-webpack.html
+- Flask-IO:https://flask-socketio.readthedocs.io/en/latest/
+- Miguel FlaskIO tutorial: https://blog.miguelgrinberg.com/post/easy-websockets-with-flask-and-gevent
 
 
 

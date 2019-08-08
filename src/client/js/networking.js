@@ -4,7 +4,19 @@ import { processGameUpdate } from './state';
 
 const Constants = require('../shared/constants');
 
-const socket = io(`ws://${window.location.host}`, { reconnection: false });
+const websocket_url = "http://localhost:8080/"
+
+
+console.log(`Attempt to connect to ${websocket_url}`);
+
+// const socket = io(`{websocket_url}`, { reconnection: false });
+const socket = io.connect(`http://127.0.0.1:8080/`);
+
+
+socket.on('connect', (message) => {
+  console.log("Connected to server");
+  console.log(message)
+})
 const connectedPromise = new Promise(resolve => {
   socket.on('connect', () => {
     console.log('Connected to server!');
