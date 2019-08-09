@@ -2,7 +2,7 @@ import sys
 import logging
 import argparse
 from glowing_shooter.server.core.flaskio_server import run as flaskio_run
-from glowing_shooter.server.core.game import Game
+from glowing_shooter.server.core.old_game import Game
 from glowing_shooter.server.core.consumer import Consumer
 from glowing_shooter.server.core.producer import Producer
 
