@@ -18,8 +18,9 @@ def configure_app(curr_app):
 
 
 def import_views():
-    from glowing_shooter.server.views import http
-    from glowing_shooter.server.views import sockets
+    """ Runtime import to prevent circular dependency caused by socketio global and thus game"""
+    import glowing_shooter.server.views.http  # noqa: F401
+    import glowing_shooter.server.views.sockets  # noqa: F401
 
 
 def run(host: str, port: int, logger):

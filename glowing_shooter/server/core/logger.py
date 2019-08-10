@@ -3,6 +3,17 @@ import sys
 from config.default import BASE_LOGGER_NAME, BASE_LOGGER_LEVEL
 
 
+class Loggable:
+    def __init__(self):
+        self.logger = None
+
+    def set_logger(self, logger: logging.Logger) -> None:
+        self.logger = logger
+
+    def get_logger(self) -> logging.Logger:
+        return self.logger if self.logger else logging.getLogger(__name__)
+
+
 def configure_logger():
     logger = logging.getLogger(BASE_LOGGER_NAME)
     # format = "[%(asctime)s] %(levelname)s [%(name)s.%(funcName)s:%(lineno)d] %(message)s"
