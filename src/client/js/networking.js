@@ -19,14 +19,15 @@ export function processServerInfo(info) {
   console.log(info["message"])
 }
 
-export const connect = onGameOver => (
+export const connect = OnGameOver => (
   connectedPromise.then(() => {
     // Register callbacks
     socket.on(Constants.MSG_TYPES.INFO, processServerInfo);
     socket.on(Constants.MSG_TYPES.GAME_UPDATE, processGameUpdate);
-    socket.on(Constants.MSG_TYPES.GAME_OVER, onGameOver);
+    socket.on(Constants.MSG_TYPES.GAME_OVER, OnGameOver);
     socket.on('disconnect', () => {
       console.log('Disconnected from server.');
+      OnGameOver()
       document.getElementById('disconnect-modal').classList.remove('hidden');
       document.getElementById('reconnect-button').onclick = () => {
         window.location.reload();

@@ -15,7 +15,7 @@ const playButton = document.getElementById('play-button');
 const usernameInput = document.getElementById('username-input');
 
 Promise.all([
-  connect(onGameOver),
+  connect(cleanOnGameOver),
   downloadAssets(),
 ]).then(() => {
   playMenu.classList.remove('hidden');
@@ -28,9 +28,14 @@ Promise.all([
     startCapturingInput();
     startRendering();
   };
-}).catch(console.error);
+}, (error) => {
+  console.error(error);
+  cleanOnGameOver();
+  }
+);
 
-function onGameOver() {
+
+function cleanOnGameOver() {
   stopCapturingInput();
   stopRendering();
   playMenu.classList.remove('hidden');
