@@ -6,10 +6,13 @@ class Game:
         self.players = dict()
 
     def add_player(self, player: Player):
-        self.players[player.session_id] = player
+        self.players[player.sid] = player
 
     def remove_player(self, player_sid: int):
         return self.players.pop(player_sid, None)
 
     def get_player(self, player_sid: int):
         return self.players.get(player_sid, None)
+
+    def all_players(self):
+        return self.players

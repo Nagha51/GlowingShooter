@@ -5,9 +5,9 @@ from glowing_shooter.server.core.physical_object import PhysicalObject
 PLAYER_HP = 100
 
 class Player(PhysicalObject):
-    def __init__(self, session_id: int, name: str):
+    def __init__(self, sid: int, name: str):
         super().__init__(0, 0, random.uniform(0, 1) * 2 * math.pi)
-        self.session_id = session_id
+        self.sid = sid
         self.name = name
         self.hp = PLAYER_HP
 
@@ -21,7 +21,7 @@ class Player(PhysicalObject):
 
     def serialize_update(self):
         return {
-            "id": self.session_id,
+            "id": self.sid,
             "x": self.x,
             "y": self.y,
             "direction": self.direction,

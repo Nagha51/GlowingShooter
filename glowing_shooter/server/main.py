@@ -1,10 +1,6 @@
-import sys
-import logging
 import argparse
 from glowing_shooter.server.core.flaskio_server import run as flaskio_run
-from glowing_shooter.server.core.old_game import Game
-from glowing_shooter.server.core.consumer import Consumer
-from glowing_shooter.server.core.producer import Producer
+from glowing_shooter.server.core.logger import configure_logger
 
 
 def configure_parser():
@@ -14,27 +10,15 @@ def configure_parser():
     return parser
 
 
-def configure_logger():
-    logger = logging.getLogger("glowing_shooter")
-    logger.setLevel(logging.DEBUG)
-    stream_handler = logging.StreamHandler(sys.stdout)
-    stream_handler.setLevel(logging.DEBUG)
-    logger.addHandler(stream_handler)
-    return logger
-
-
 def start_server():
-    logger = configure_logger()
     parser = configure_parser()
+    logger = configure_logger()
+
     logger.debug("Parsing inputs")
     parsed_args = parser.parse_args()
 
-    consumer = Consumer()
-    producer = Producer()
-    game = Game(consumer, producer, **vars(parsed_args))
     logger.debug("Starting game")
-    # game.run()
-    flaskio_run(parsed_args.host, parsed_args.port)
+    flaskio_run(parsed_args.host, parsed_args.port, logger)
 
 
 if __name__ == "__main__":
