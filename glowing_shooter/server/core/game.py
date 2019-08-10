@@ -35,7 +35,7 @@ class Game(Loggable):
 
     def serialize_update_by_player(self, player: Player) -> Dict[str, Any]:
         return {
-            "t": self.last_update_time,
+            "t": self.last_update_time*1000,
             "me": player.serialize_update(),
             "others": [],
             "bullets": []
