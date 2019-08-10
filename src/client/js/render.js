@@ -28,6 +28,7 @@ function render() {
   }
 
   // Draw background
+  console.debug(`Rendering position: x: ${me.x} - y: ${me.y}`)
   renderBackground(me.x, me.y);
 
   // Draw boundaries
@@ -36,11 +37,11 @@ function render() {
   context.strokeRect(canvas.width / 2 - me.x, canvas.height / 2 - me.y, MAP_SIZE, MAP_SIZE);
 
   // Draw all bullets
-  bullets.forEach(renderBullet.bind(null, me));
+  // bullets.forEach(renderBullet.bind(null, me));
 
   // Draw all players
   renderPlayer(me, me);
-  others.forEach(renderPlayer.bind(null, me));
+  // others.forEach(renderPlayer.bind(null, me));
 }
 
 function renderBackground(x, y) {
