@@ -43,3 +43,7 @@ export const play = username => {
 export const updateDirection = throttle(20, dir => {
   socket.emit(Constants.MSG_TYPES.INPUT, dir);
 });
+
+export const updateLeftClick = throttle(20, () => {
+  socket.emit(Constants.MSG_TYPES.LEFT_CLICK)
+});

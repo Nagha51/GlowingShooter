@@ -5,7 +5,7 @@ from flask import request
 from glowing_shooter.server.core.flaskio_server import socketio, game
 
 from glowing_shooter.server.core.player import Player
-from config.default import PLAYER_UPDATE_EVENT, PLAYER_INPUT_EVENT
+from config.default import PLAYER_UPDATE_EVENT, PLAYER_INPUT_EVENT, PLAYER_LEFT_CLICK_EVENT
 
 logger = logging.getLogger(__name__)
 
@@ -32,7 +32,7 @@ def join_game(username):
     game.add_player(player)
     logger.info(f"Client: {request.sid} joined the game as {player.name}")
     emit("info", {"message": f"Welcome into the game {player.name}"})
-    emit(PLAYER_UPDATE_EVENT, game.serialize_update_by_player(player), room=player.uid)
+    emit(PLAYER_UPDATE_EVENT, game.serialize_update_single_player(player), room=player.uid)
 
 
 @socketio.on(PLAYER_INPUT_EVENT)
@@ -40,3 +40,12 @@ def handle_input(direction):
     player = game.get_player(request.sid)
     if player:
         player.direction = direction
+
+
+@socketio.on(PLAYER_LEFT_CLICK_EVENT)
+def handle_left_click():
+    player = game.get_player(request.sid)
+    if player:
+        new_bullet = player.shoot()
+        if new_bullet:
+            game.add_bullet(new_bullet)

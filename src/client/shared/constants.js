@@ -16,6 +16,7 @@ module.exports = Object.freeze({
     JOIN_GAME: 'join_game',
     GAME_UPDATE: 'update',
     INPUT: 'input',
+    LEFT_CLICK: 'left_click',
     GAME_OVER: 'dead',
     INFO: "info"
   },
