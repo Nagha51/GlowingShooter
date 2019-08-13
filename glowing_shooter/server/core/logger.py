@@ -1,6 +1,6 @@
 import logging
 import sys
-from config.default import BASE_LOGGER_NAME, BASE_LOGGER_LEVEL
+from config.default import BASE_LOGGER_NAME, BASE_LOGGER_LEVEL, WERKZEUG_LOGGER_ENABLED
 
 
 class Loggable:
@@ -15,6 +15,10 @@ class Loggable:
 
 
 def configure_logger():
+    if not WERKZEUG_LOGGER_ENABLED:
+        werkzeug_logger = logging.getLogger("werkzeug")
+        werkzeug_logger.disabled = True
+        werkzeug_logger.propagate = False
     logger = logging.getLogger(BASE_LOGGER_NAME)
     # format = "[%(asctime)s] %(levelname)s [%(name)s.%(funcName)s:%(lineno)d] %(message)s"
     format = "[%(asctime)s] %(levelname)s %(message)s"

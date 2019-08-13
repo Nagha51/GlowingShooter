@@ -16,6 +16,7 @@ TICKRATE_MS = 100
 TICKRATE_SEC = TICKRATE_MS / 1000
 
 # Should match the name of the folder containing server code (allow logger inheritance/propagation)
+WERKZEUG_LOGGER_ENABLED = False
 BASE_LOGGER_NAME = "glowing_shooter"
 BASE_LOGGER_LEVEL = logging.DEBUG
 LOGGER_LEVEL_TRACE = 5
