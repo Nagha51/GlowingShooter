@@ -4,7 +4,7 @@ import { processGameUpdate } from './state';
 
 const Constants = require('../shared/constants');
 
-const socket = io.connect(`http://127.0.0.1:8080/`);
+const socket = io.connect(`ws://${window.location.host}`);
 
 
 const connectedPromise = new Promise(resolve => {
