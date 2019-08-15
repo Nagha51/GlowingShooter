@@ -1,4 +1,4 @@
-from typing import Optional, Dict, List, Any
+from typing import Optional, Dict, List, Any, Callable
 
 import time
 
@@ -13,16 +13,30 @@ class Game(Loggable):
         super().__init__()
         self.players = dict()
         self.bullets = list()
-        self.last_update_time = round(time.time(), 2)
+        self.last_update_time = None
         self.logger = None
+        self.get_time = lambda: round(time.time(), 2)
+        self.active = False
+
+    def set_get_time(self, func: Callable):
+        """ Mostly defined for tests purpose """
+        self.get_time = func
+
+    def start(self):
+        self.active = True
+        self.last_update_time = self.get_time()
+
+    def stop(self):
+        self.active = False
 
     def add_player(self, player: Player) -> None:
         self.players[player.uid] = player
+        player.on.shoot.append(self.add_bullet)
 
-    def remove_player(self, player_uid: int) -> Optional[Player]:
+    def remove_player(self, player_uid: str) -> Optional[Player]:
         return self.players.pop(player_uid, None)
 
-    def get_player(self, player_uid: int) -> Optional[Player]:
+    def get_player(self, player_uid: str) -> Optional[Player]:
         return self.players.get(player_uid, None)
 
     def all_players(self) -> Dict[str, Player]:
@@ -30,12 +44,16 @@ class Game(Loggable):
 
     def add_bullet(self, bullet: Bullet) -> None:
         self.bullets.append(bullet)
+        bullet.on.delete.append(self.remove_bullet)
+
+    def remove_bullet(self, bullet: Bullet) -> None:
+        self.bullets.remove(bullet)
 
     def all_bullets(self) -> List[Bullet]:
         return self.bullets
 
     def update(self) -> None:
-        now = round(time.time(), 2)
+        now = self.get_time()
         dt = now - self.last_update_time
         self.last_update_time = now
         self.get_logger().log(LOGGER_LEVEL_TRACE, f"DeltaTime elapsed since last game update: {dt}")

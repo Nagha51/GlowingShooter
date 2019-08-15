@@ -4,7 +4,8 @@ from config.default import PLAYER_UPDATE_EVENT, TICKRATE_SEC
 def background_thread(socket_server, game, logger):
     """Continuously send game status to players """
     logger.debug("Start background infinite loop")
-    while True:
+    game.start()
+    while game.active:
         socket_server.sleep(TICKRATE_SEC)
         game.update()
         for player_payload in game.serialize_update():

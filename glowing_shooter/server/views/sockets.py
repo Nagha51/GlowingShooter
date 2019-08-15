@@ -1,51 +1,37 @@
-import logging
 from flask_socketio import emit
 from flask import request
 
 from glowing_shooter.server.core.flaskio_server import socketio, game
 
-from glowing_shooter.server.core.player import Player
+from glowing_shooter.server.entrypoints.player import disconnect, handle_input, handle_left_click, join_game, \
+    new_connection
 from config.default import PLAYER_UPDATE_EVENT, PLAYER_INPUT_EVENT, PLAYER_LEFT_CLICK_EVENT
-
-logger = logging.getLogger(__name__)
 
 
 @socketio.on("connect")
-def new_connection():
-    logger.info(f"Client connection: {request.sid}")
+def io_new_connection() -> None:
+    new_connection(request.sid)
     emit("info", {"message": "Hello you !"})
 
 
 @socketio.on("disconnect")
-def disconnect():
+def io_disconnect() -> None:
     # Might already be auto-magically handled by flask_socketio.SocketIO(monitor_clients=True)
-    removed_player_sid = game.remove_player(request.sid)
-    if removed_player_sid:
-        logger.info(f"Client disconnected: {removed_player_sid}")
-    else:
-        logger.info(f"Failed to remove player: {request.sid}")
+    disconnect(game, request.sid)
 
 
 @socketio.on("join_game")
-def join_game(username):
-    player = Player(request.sid, username)
-    game.add_player(player)
-    logger.info(f"Client: {request.sid} joined the game as {player.name}")
+def io_join_game(username) -> None:
+    player, game_update = join_game(game, request.sid, username)
     emit("info", {"message": f"Welcome into the game {player.name}"})
-    emit(PLAYER_UPDATE_EVENT, game.serialize_update_single_player(player), room=player.uid)
+    emit(PLAYER_UPDATE_EVENT, game_update, room=player.uid)
 
 
 @socketio.on(PLAYER_INPUT_EVENT)
-def handle_input(direction):
-    player = game.get_player(request.sid)
-    if player:
-        player.direction = direction
+def io_handle_input(direction) -> None:
+    handle_input(game, request.sid, direction)
 
 
 @socketio.on(PLAYER_LEFT_CLICK_EVENT)
-def handle_left_click():
-    player = game.get_player(request.sid)
-    if player:
-        new_bullet = player.shoot()
-        if new_bullet:
-            game.add_bullet(new_bullet)
+def io_handle_left_click() -> None:
+    handle_left_click(game, request.sid)

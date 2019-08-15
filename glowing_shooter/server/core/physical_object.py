@@ -1,13 +1,18 @@
-from typing import Dict, Any
+from typing import Dict, Any, Type
 import math
-from config.default import MAP_SIZE
 from glowing_shooter.server.core.logger import Loggable
+from glowing_shooter.server.core.callbacks import DefaultCallbackManager
+from glowing_shooter.server.core.rules import PhysicalObjectRules
 
 
 class PhysicalObject(Loggable):
 
-    def __init__(self, uid: str, x: float, y: float, direction: float, speed: int):
+    def __init__(self, uid: str, x: float, y: float, direction: float, speed: int,
+                 callback_manager: Type[DefaultCallbackManager] = DefaultCallbackManager,
+                 rule_manager: Type[PhysicalObjectRules] = PhysicalObjectRules):
         super().__init__()
+        self.on = callback_manager()
+        self.rules = rule_manager()
         self._uid = uid
         self._x = x
         self._y = y
@@ -28,8 +33,7 @@ class PhysicalObject(Loggable):
 
     @x.setter
     def x(self, value) -> None:
-        in_map_value = max(0, min(MAP_SIZE, value))
-        self._x = round(in_map_value, 2)
+        self._x = round(self.rules.x(self, value), 2)
 
     @property
     def y(self) -> float:
@@ -37,8 +41,7 @@ class PhysicalObject(Loggable):
 
     @y.setter
     def y(self, value) -> None:
-        in_map_value = max(0, min(MAP_SIZE, value))
-        self._y = round(in_map_value, 2)
+        self._y = round(self.rules.y(self, value), 2)
 
     @property
     def direction(self) -> float:
@@ -57,7 +60,7 @@ class PhysicalObject(Loggable):
         self._speed = value
 
     def update(self, dt) -> None:
-        """ dt is the delta-time used to calculate speed (distance/second)"""
+        """ dt is the delta-time in second used to calculate position given speed (v = dist/dt)"""
         self.x += dt * self.speed * math.sin(self.direction)
         # MIND THE "MINUS" OPERATOR, on a web browser "y" point downwards, infinite scrollers ;)
         self.y -= dt * self.speed * math.cos(self.direction)
@@ -69,3 +72,7 @@ class PhysicalObject(Loggable):
             "y": self.y,
             "direction": self.direction
         }
+
+    def delete(self):
+        for callback in self.on.delete:
+            callback(self)

@@ -1,3 +1,4 @@
+from typing import Optional
 from glowing_shooter.server.core.bullet import BulletFactory, Bullet
 
 
@@ -8,12 +9,13 @@ class Canon:
         self.next_reload_time_ms = 0
         self.bullet_factory = bullet_factory
 
-    def shoot(self, x: float, y: float, direction: float) -> Bullet:
-        if self.next_reload_time_ms < 0:
+    def shoot(self, x: float, y: float, direction: float) -> Optional[Bullet]:
+        if self.next_reload_time_ms <= 0:
             self.next_reload_time_ms = self.reload_time_ms
             return self.bullet_factory.create(self.parent_id, x, y, direction)
 
     def update(self, dt: float) -> None:
+        """ dt is in second """
         self.next_reload_time_ms -= dt * 1000
 
 
