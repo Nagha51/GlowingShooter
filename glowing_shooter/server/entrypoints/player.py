@@ -27,10 +27,12 @@ def join_game(game: Game, player_sid: str, username: str) -> Tuple[Player, Dict[
     return player, game.serialize_update_single_player(player)
 
 
-def handle_input(game: Game, player_sid: str, direction: float) -> None:
+def handle_movement(game: Game, player_sid: str,
+                    move_direction: float, look_direction: float) -> None:
     player = game.get_player(player_sid)
     if player:
-        player.direction = direction
+        player.move_direction = move_direction
+        player.look_direction = look_direction
 
 
 def handle_left_click(game: Game, player_sid: str) -> None:

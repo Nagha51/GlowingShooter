@@ -3,7 +3,7 @@ from flask import request
 
 from glowing_shooter.server.core.flaskio_server import socketio, game
 
-from glowing_shooter.server.entrypoints.player import disconnect, handle_input, handle_left_click, join_game, \
+from glowing_shooter.server.entrypoints.player import disconnect, handle_movement, handle_left_click, join_game, \
     new_connection
 from config.default import PLAYER_UPDATE_EVENT, PLAYER_INPUT_EVENT, PLAYER_LEFT_CLICK_EVENT
 
@@ -28,8 +28,8 @@ def io_join_game(username) -> None:
 
 
 @socketio.on(PLAYER_INPUT_EVENT)
-def io_handle_input(direction) -> None:
-    handle_input(game, request.sid, direction)
+def io_handle_input(move_direction) -> None:
+    handle_movement(game, request.sid, move_direction, look_direction=move_direction)
 
 
 @socketio.on(PLAYER_LEFT_CLICK_EVENT)

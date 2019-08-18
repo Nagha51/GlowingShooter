@@ -47,7 +47,10 @@ class Game(Loggable):
         bullet.on.delete.append(self.remove_bullet)
 
     def remove_bullet(self, bullet: Bullet) -> None:
-        self.bullets.remove(bullet)
+        try:
+            self.bullets.remove(bullet)
+        except ValueError:
+            pass
 
     def all_bullets(self) -> List[Bullet]:
         return self.bullets

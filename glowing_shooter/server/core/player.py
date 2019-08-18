@@ -27,15 +27,15 @@ class Player(PhysicalObject, Loggable):
         self._name = name
 
     @staticmethod
-    def start_position() -> Tuple[float, float, float]:
+    def start_position() -> Tuple[float, float, float, float]:
         """ 0 Pi is top
             0.5 Right
             1  Bottom
             1.5 Left"""
-        return 1500, 1500, random.uniform(0, 1) * 2 * math.pi
+        return 1500, 1500, 0, random.uniform(0, 1) * 2 * math.pi
 
     def shoot(self):
-        bullet = self.canon.shoot(self.x, self.y, self.direction)
+        bullet = self.canon.shoot(self.x, self.y, self.move_direction)
         if bullet:
             for callback in self.on.shoot:
                 callback(bullet)

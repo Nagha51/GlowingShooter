@@ -20,7 +20,7 @@ class Canon:
 
 
 class CustomCanon(Canon):
-    def __init__(self, parent_id: str, reload_time_ms: int = 20,
+    def __init__(self, parent_id: str, reload_time_ms: int = 200,
                  bullet_factory: BulletFactory = BulletFactory(600)):
         super().__init__(parent_id, reload_time_ms, bullet_factory)
 

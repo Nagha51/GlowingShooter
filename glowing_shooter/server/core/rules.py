@@ -1,21 +1,37 @@
-from typing import Callable
 from config.default import MAP_SIZE
 
 
 class PhysicalObjectRules:
-    def __init__(self, x: Callable = None, y: Callable = None):
-        self.x = x if x else PhysicalObjectRules.x_rule
-        self.y = y if y else PhysicalObjectRules.y_rule
 
-    @staticmethod
-    def x_rule(obj, value):
+    @classmethod
+    def x(cls, obj, value):
         return max(0, min(MAP_SIZE, value))
 
-    @staticmethod
-    def y_rule(obj, value):
+    @classmethod
+    def y(cls, obj, value):
         return max(0, min(MAP_SIZE, value))
 
 
 class SimpleBullet(PhysicalObjectRules):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+
+    @classmethod
+    def x(cls, obj, value) -> []:
+        if value < 0:
+            obj.to_delete = True
+            return 0
+        elif value > MAP_SIZE:
+            obj.to_delete = True
+            return MAP_SIZE
+        return value
+
+    @classmethod
+    def y(cls, obj, value):
+        if value < 0:
+            obj.to_delete = True
+            return 0
+        elif value > MAP_SIZE:
+            obj.to_delete = True
+            return MAP_SIZE
+        return value
