@@ -40,8 +40,18 @@ export const play = username => {
   socket.emit(Constants.MSG_TYPES.JOIN_GAME, username);
 };
 
-export const updateDirection = throttle(20, dir => {
-  socket.emit(Constants.MSG_TYPES.INPUT, dir);
+export const updateMoveDirection = throttle(20, dir => {
+  if (dir >= 0) {
+    console.log("updateMoveDirection", dir)
+    socket.emit(Constants.MSG_TYPES.MOVE, dir);
+  }
+  else {
+    socket.emit(Constants.MSG_TYPES.MOVE, Constants.MSG_TYPES.STOP_MOVE);
+  }
+});
+
+export const updateLookDirection = throttle(20, dir => {
+  socket.emit(Constants.MSG_TYPES.LOOK, dir);
 });
 
 export const updateLeftClick = throttle(20, () => {

@@ -26,6 +26,7 @@ class PhysicalObject(Loggable):
         self.to_right = False
         self.to_top = False
         self.to_down = False
+        self.is_moving = True
 
     @property
     def uid(self) -> str:
@@ -80,9 +81,10 @@ class PhysicalObject(Loggable):
         if self.to_delete:
             self.delete()
         else:
-            self.x += dt * self.speed * math.sin(self.move_direction)
-            # MIND THE "MINUS" OPERATOR, on a web browser "y" point downwards, infinite scrollers ;)
-            self.y -= dt * self.speed * math.cos(self.move_direction)
+            if self.is_moving:
+                self.x += dt * self.speed * math.sin(self.move_direction)
+                # MIND THE "MINUS" OPERATOR, on a web browser "y" point downwards, infinite scrollers ;)
+                self.y -= dt * self.speed * math.cos(self.move_direction)
 
     def serialize_update(self) -> Dict[str, Any]:
         return {

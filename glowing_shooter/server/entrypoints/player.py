@@ -1,4 +1,4 @@
-from typing import Tuple, Dict, Any
+from typing import Tuple, Dict, Any, Optional
 import logging
 
 from glowing_shooter.server.core.player import Player
@@ -28,11 +28,18 @@ def join_game(game: Game, player_sid: str, username: str) -> Tuple[Player, Dict[
 
 
 def handle_movement(game: Game, player_sid: str,
-                    move_direction: float, look_direction: float) -> None:
+                    move_direction: Optional[float] = None,
+                    look_direction: Optional[float] = None) -> None:
     player = game.get_player(player_sid)
     if player:
-        player.move_direction = move_direction
-        player.look_direction = look_direction
+        if move_direction is not None:
+            if move_direction == 666:
+                player.is_moving = False
+            else:
+                player.is_moving = True
+                player.move_direction = move_direction
+        if look_direction is not None:
+            player.look_direction = look_direction
 
 
 def handle_left_click(game: Game, player_sid: str) -> None:

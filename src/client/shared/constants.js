@@ -15,7 +15,9 @@ module.exports = Object.freeze({
   MSG_TYPES: {
     JOIN_GAME: 'join_game',
     GAME_UPDATE: 'update',
-    INPUT: 'input',
+    STOP_MOVE: 666,
+    MOVE: 'move',
+    LOOK: 'look',
     LEFT_CLICK: 'left_click',
     GAME_OVER: 'dead',
     INFO: "info"

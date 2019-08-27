@@ -11,6 +11,8 @@ assets_path = os.path.join(this_dir, "../assets")
 PLAYER_UPDATE_EVENT = "update"
 PLAYER_INPUT_EVENT = "input"
 PLAYER_LEFT_CLICK_EVENT = "left_click"
+PLAYER_MOVE_EVENT = "move"
+PLAYER_LOOK_EVENT = "look"
 
 # SERVER CONFIGS
 TICKRATE_MS = 100
